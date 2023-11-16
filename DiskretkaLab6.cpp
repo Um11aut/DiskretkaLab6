@@ -10,9 +10,6 @@ int main() {
 
 	std::vector<ClauseExpression> clauseExpressions;
 
-	--p;
-	--q;
-
 	clauseExpressions.push_back(ClauseExpression({ p,q,s }, { Operator::OR, Operator::OR }));
 	clauseExpressions.push_back(ClauseExpression({ p,r }, { Operator::IMPLICATION }));
 	clauseExpressions.push_back(ClauseExpression({ q,r }, { Operator::IMPLICATION }));
@@ -56,16 +53,5 @@ int main() {
 	term2.print();
 	std::cout << std::endl;
 	
-	std::map<std::string, Function> substitution;
-	if (Unifier::unify(term1, term2, substitution)) {
-		std::cout << "Unification successful. Substitution:\n";
-		for (const auto& entry : substitution) {
-			std::cout << entry.first << " -> ";
-			entry.second.print();
-			std::cout << std::endl;
-		}
-	}
-	else {
-		std::cout << "Unification failed." << std::endl;
-	}
+	Unifier::unify(term1, term2);
 }

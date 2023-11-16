@@ -3,6 +3,11 @@
 #include <map>
 
 class Function {
+private:
+    constexpr friend std::ostream& operator<<(std::ostream& os, const Function& other) {
+        os << other.name;
+        return os;
+    }
 public:
     std::string name;
     std::vector<Function> arguments;
@@ -26,17 +31,9 @@ public:
 
 class Unifier {
 public:
-    static bool unify(const Function& t1, const Function& t2, std::map<std::string, Function>& substitution) {
-        if (t1.name != t2.name || t1.arguments.size() != t2.arguments.size()) {
-            return false;
-        }
-
+    static void unify(Function& t1, Function& t2) {
         for (size_t i = 0; i < t1.arguments.size(); ++i) {
-            if (!unify(t1.arguments[i], t2.arguments[i], substitution)) {
-                return false;
-            }
+            std::cout << t1.arguments[i] << " = " << t2.arguments[i] << std::endl;
         }
-
-        return true;
     }
 };
